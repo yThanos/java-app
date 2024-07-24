@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>fraporti.magro.backend</groupId>
 	<artifactId>java-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>java-app</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
