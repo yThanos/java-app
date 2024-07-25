@@ -37,7 +37,7 @@ public class AuthService {
             if(authentication.isAuthenticated()){
                 user = this.userRepository.findByUsername(user.getUsername()).orElseThrow();
                 String token = JwtUtil.generateToken(user.getUsername());
-                UserDTO userDTO = new UserDTO(user.getIdUser(), user.getUsername(), user.getName(), token);
+                UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(), user.getName(), token);
                 return new ResponseEntity<>(userDTO, HttpStatus.OK);
             }
         } catch (Exception e) {

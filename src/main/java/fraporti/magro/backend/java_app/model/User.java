@@ -18,13 +18,17 @@ public class User {
     @Id
     @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
+    private Long id;
+    
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "name")
     private String name;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_permissions",

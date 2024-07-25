@@ -35,7 +35,8 @@ public class AuthFilter extends OncePerRequestFilter{
         }
         if (authorization == null) {
             System.out.println("Sem token");
-            response.sendError(401);
+            //response.sendError(401);
+            filterChain.doFilter(request, response);
             return;
         } else if(JwtUtil.isTokenExpired(authorization)){
             System.out.println("Token expirado");
