@@ -35,7 +35,7 @@ public class AuthService {
             );
             System.out.println("auth: "+authentication);
             if(authentication.isAuthenticated()){
-                user = this.userRepository.findByUsername(user.getUsername()).orElseThrow();
+                user = this.userRepository.getUserByUsername(user.getUsername()).orElseThrow();
                 String token = JwtUtil.generateToken(user.getUsername());
                 UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(), user.getName(), token);
                 return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -47,14 +47,14 @@ public class AuthService {
     }
 
     public ResponseEntity<?> create(User user) {
-        Optional<User> usuario = this.userRepository.findByUsername(user.getUsername());
+        Optional<User> usuario = this.userRepository.getUserByUsername(user.getUsername());
         if(usuario.isPresent()){
             return new ResponseEntity<>("Já existe uma conta cadastrada para esse email!", HttpStatus.UNAUTHORIZED);
         }
         System.out.println("Create: "+user.getUsername());
         try {
             Permission permission = new Permission();
-            permission.setIdPermission(1L);
+            permission.setId(1L);
             permission.setDescription("USER");
             user.setPermissions(List.of(permission));
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));

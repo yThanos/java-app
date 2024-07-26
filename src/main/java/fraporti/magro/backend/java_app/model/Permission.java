@@ -2,12 +2,12 @@ package fraporti.magro.backend.java_app.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,7 +16,7 @@ public class Permission {
     @Id
     @Column(name = "id_permission")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPermission;
+    private Long id;
 
     @Column(name = "name")
     private String name;

@@ -1,7 +1,5 @@
 package fraporti.magro.backend.java_app.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +14,4 @@ public class UserDTO {
     private String username;
     private String name;
     private String token;
-    List<InteractionDTO> interactions;
 }

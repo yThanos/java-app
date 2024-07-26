@@ -25,12 +25,17 @@ public class UserDatailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = this.userRepository.findByUsername(username);
-
+        System.out.println("Passing through UserDatailsServiceImpl");
+        System.out.println("Username: " + username);
+        Optional<User> user = this.userRepository.getUserByUsername(username);
+        //Optional<User> user = Optional.of(new User(1L, "vitor@gmail.com",new BCryptPasswordEncoder().encode("1234"), "Vitor Fraporti", List.of(new Permission(1L, "USER", "User"))));
+        System.out.println("Username after: " + username);
         if(user.isEmpty()) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
         User userData = user.get();
+        System.out.println("User: " + userData);
+        userData.setPermissions(List.of(new Permission(1L, "USER", "User")));
 
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(
             userData.getPermissions().stream()

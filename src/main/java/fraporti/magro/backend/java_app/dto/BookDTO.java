@@ -14,5 +14,6 @@ public class BookDTO {
   private String publisher;
   private Integer volumes;
   private Double avgRating;
+  private String imgUrl;
   List<InteractionDTO> interactions;
 }

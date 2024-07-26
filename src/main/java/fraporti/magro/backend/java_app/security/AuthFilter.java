@@ -29,7 +29,7 @@ public class AuthFilter extends OncePerRequestFilter{
         String authorization = request.getHeader("Authorization");
         String username = JwtUtil.getUsernameToken(authorization);
         System.out.println(request.getRequestURI());
-        if(request.getRequestURI().contains("/auth")) {
+        if(request.getRequestURI().contains("/auth") || request.getRequestURI().contains("/book/byRating")){
             filterChain.doFilter(request, response);
             return;
         }
@@ -44,10 +44,12 @@ public class AuthFilter extends OncePerRequestFilter{
             return;
         } else {
             if(SecurityContextHolder.getContext().getAuthentication() == null){
+                System.out.println("Token válido");
                 UserDetails user = userDatailsServiceImpl.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("Auth: "+auth);
             }
         }
         filterChain.doFilter(request, response);

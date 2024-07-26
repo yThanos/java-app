@@ -9,4 +9,5 @@ public interface BookProjection {
   String getPublisher();
   Integer getVolumes();
   Double getAvgRating();
+  String getImgUrl();
 }

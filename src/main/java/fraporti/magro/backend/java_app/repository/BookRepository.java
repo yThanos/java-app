@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import fraporti.magro.backend.java_app.model.Book;
+import fraporti.magro.backend.java_app.model.projections.BookProjection;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT b FROM Book b ORDER BY b.avgRating DESC")
-    public List<Book> findByAvgRating(Pageable pageable);
+    public List<BookProjection> findByAvgRating(Pageable pageable);
 }

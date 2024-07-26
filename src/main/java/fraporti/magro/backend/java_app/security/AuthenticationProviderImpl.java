@@ -19,6 +19,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        System.out.println("Passing through AuthenticationProviderImpl");
         final String username = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getName();
         final String password = (authentication.getCredentials() == null) ? "NONE_PROVIDED" : authentication.getCredentials().toString();
 
@@ -26,9 +27,15 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
             throw new BadCredentialsException("Nenhum login ou senha foi informado!");
         }
 
-        UserDetails userDatails = this.userDatailsServiceImpl.loadUserByUsername(authentication.getName());
+        System.out.println("Username: "+username);
+        System.out.println("Password: "+password);
+
+        UserDetails userDatails = this.userDatailsServiceImpl.loadUserByUsername(username);
+
+        System.out.println("Details: "+userDatails);
 
         if(new BCryptPasswordEncoder().matches(password, userDatails.getPassword())){
+            System.out.println("Usuário autenticado!");
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDatails.getUsername(), userDatails.getPassword(), userDatails.getAuthorities());
             auth.setDetails(userDatails);
             return auth;
